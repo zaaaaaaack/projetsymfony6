@@ -1,0 +1,97 @@
+/* Overall body styling */
+body {
+    margin: 0;
+    padding: 0;
+    /* Creating a gradient background from black to red */
+    background: linear-gradient(to left, #000000, #ff0000);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+/* Styling for the login box */
+.login-box {
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8); /* Slightly transparent black */
+    text-align: center;
+    border-radius: 15px;
+}
+
+.login-box h2 {
+    color: #ff0000; /* Red color for the heading */
+    margin: 0 0 20px;
+    padding: 0;
+    font-weight: 500;
+}
+
+/* Styling for the input fields and icons */
+.textbox {
+    height :30px;
+    margin-bottom:15px;
+    position: relative;
+}
+
+.textbox input {
+    height:100%;
+    width :100%;
+    outline: none;
+    padding-left: 60px;
+    border-radius: 5px;
+    border : 1px solid lightgrey;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.textbox i {
+    color: #ff0000; /* Red color for icons */
+    position:absolute;
+    width:30px;
+    height:100%;
+    font-size: 18px;
+    border-radius: 5px 0 0 5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Button styling */
+.btn {
+    width: 100%;
+    background: #ff0000; /* Red background for the button */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #ffffff; /* White text */
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background: #e60000; /* Slightly darker red on hover */
+}
+.login-link{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+.login-link a{
+    color:#ffffff;
+    text-decoration: none;
+}
+.message{
+    color: #ff0000;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .login-box {
+        width: 90%;
+    }
+}

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700@display=swap');
+*{
+    margin: 0;
+    padding: 0;;
+    box-sizing:0;
+    font-family: 'Poppins', sans-serif;
+}
+html,body{
+    overflow:hidden;
+    background:#1abc9c;
+
+}
+.container{
+    max-width: 440px;
+    padding:0 20px;
+    margin:170px auto;
+}
+.wrapper{
+    width :450px;
+    background:#fff;
+    border-radius:5px;
+}
+.wrapper .title {
+    line-height:80px;
+    background:#16a085;
+    padding-left: 20px;
+    color:#fff;
+    border-radius: 5px 5px 0 0;
+    font-size: 25px;
+    font-weight: 600;
+
+}
+.wrapper form{
+    padding: 30px 25px 25px 25px;
+
+}
+.wrapper form .row{
+    height :45px;
+    margin-bottom:15px;
+    position: relative;
+}
+.wrapper form .row input{
+    height:100%;
+    width :80%;
+    outline: none;
+    padding-left: 60px;
+    border-radius: 5px;
+    border : 1px solid lightgrey;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.wrapper form .row i{
+    position:absolute;
+    width:47px;
+    height:100%;
+    color:#fff;
+    font-size: 18px;
+    background:#16a085;
+    border:1px solid #16a085;
+    border-radius: 5px 0 0 5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper form .button input{
+    width:100%;
+    color:#fff;
+    font-weight: 500;
+    font-size: 18px;
+    padding-left: 0px;
+    background:#16a085;
+    border: 1px solid #16a085;
+    cursor: pointer;
+}
+.wrapper form .signup-link{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+.wrapper form .signup-link a{
+    color:#16a085;
+    text-decoration: none;
+    
+}
+form .signup-link a:hover{
+    text-decoration: underline;
+}
+form .row input:focus{
+    border-color:#16a085;
+    box-shadow: inset 0px 0px 2px 2px rgba(26,188,156,0.25);
+}
