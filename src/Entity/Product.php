@@ -20,6 +20,9 @@ class Product
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     private ?string $img = null;
 
     #[ORM\Column]
