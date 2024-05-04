@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ product.name}}{% endblock %}
+{% block stylesheets %}
+<style>
+
+    
+
+
+
+    body {
+        background: #151515;
+        height: 100%;
+        font-family: "Nunito Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+    }
+    /* Apply styles to the container */
+        .containerrr {
+            padding-top: 160px; /* Add padding to the top of the container */
+        }
+        h2{
+        color : black;
+        }
+        hr {
+    color: black;
+    }
+        /* Apply styles to the product box */
+                .product {
+                display: flex;
+                padding: 20px;
+                border-radius: 15px;
+                background-color: #333;
+                color: #fff;
+                border: 4px solid #e4381C; /* Set the border size and color */
+            }
+
+            /* Apply styles to the product image */
+            .product img {
+                margin-right: 20px;
+                border-radius: 5px;
+            }
+
+            /* Apply styles to the product name */
+            .product .name {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            /* Apply styles to the product price */
+            .product .price {
+                font-size: 20px;
+                margin-bottom: 20px;
+                color: #e4381C;
+            }
+
+            /* Apply styles to the Add to Cart button */
+            .product input[type="submit"] {
+                background-color: #e4381C;
+                border: none;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            /* Apply styles to the Add to Cart button on hover */
+            .product input[type="submit"]:hover {
+                background-color: #ff6600;
+            }
+
+            /* Apply styles to the product description */
+            .product .description {
+                font-size: 16px;
+            }
+
+            /* Apply styles to the quantity input */
+            .product input[type="number"] {
+                width: 400px;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        color: #555555;
+        border-radius: 5px;
+            }
+
+
+        </style>
+{% endblock %}
+{% block body %}
+<div class="containerrr">
+    <div class="product content-wrapper">
+        <img src="../{{ product.img }}" width="250" height="250" alt="{{ product.name }}">
+        <div>
+            <h1 class="name">{{ product.name }}</h1>
+            <span class="price">
+                &dollar;{{product.price}}
+            </span>
+            <form action="cart.php" method="post">
+                <input type="number" name="quantity" value="1" min="1" max="{{ product.quantity }}" placeholder="Quantity" required>
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="submit" value="Add To Cart">
+            </form>
+            <div class="description">
+                {{product.description}}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
