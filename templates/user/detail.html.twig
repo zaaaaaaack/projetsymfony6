@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block PageTitle %}details of users {% endblock %}
+
+{% block body %}
+    <div class="alert alert-success">
+        <h1>Details of users</h1>
+        {{ user.id }} - {{ user.FullName }} - {{ user.Email }}
+
+    </div>
+
+{% endblock %}

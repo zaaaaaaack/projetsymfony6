@@ -1,0 +1,66 @@
+{% extends 'template.html.twig' %}
+
+{% block Title %}these are the users{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <a  href="{{ path('user.add') }}" class="btn btn-dark">Add user</a>
+        <br><br>
+
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="col">ID</th>
+            <th class="col">FullName</th>
+            <th class="col">UserName</th>
+            <th class="col">PhoneNumber</th>
+            <th class="col">Email</th>
+            <th class="col">Password</th>
+            <th class="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.FullName }}</td>
+                <td>{{ user.UserName }}</td>
+                <td>{{ user.Phone }}</td>
+                <td>{{ user.Email }}</td>
+                <td>{{ user.Password }}</td>
+                <td>
+                    <a href="{{ path('user.edit',{id:user.id}) }}" class="btn btn-outline-danger">Edit</a>
+                    <a href="{{ path('user.delete',{id:user.id}) }}" class="btn btn-danger">Delete</a>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        {% if isPaginated is defined and isPaginated %}
+            <div class="row mt-2">
+                <nav aria-label="col Page navigation example">
+                    <ul class="pagination">
+                        {% if page != 1 %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('user.findby.pages', {page: page - 1, nb: nb}) }}">Previous</a></li>
+                        {% endif %}
+                        {% for i in range(1, nbpages) %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('user.findby.pages', {page: i, nb: nb}) }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if page != nbpages %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('user.findby.pages', {page: page + 1, nb: nb}) }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
