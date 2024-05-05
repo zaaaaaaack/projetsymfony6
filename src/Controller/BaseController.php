@@ -15,4 +15,9 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+    #[Route('/base/contact', name: 'contact')]
+    public function contact(): Response
+    {
+        return $this->redirectToRoute('form.add');
+    }
 }

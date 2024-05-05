@@ -141,7 +141,7 @@
                                             <li><a href="./blog-single.html">Blog Details</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="./contact.html">Contacts</a></li>
+                                    <li><a href="{{ path('contact') }}">Contacts</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -156,8 +156,9 @@
                     <div id="mobile-menu-wrap"></div>
                 </div>
             </header>
-            {% block body %}{% endblock %}
+
             <footer class="footer-section">
+                {% block body %}{% endblock %}
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">

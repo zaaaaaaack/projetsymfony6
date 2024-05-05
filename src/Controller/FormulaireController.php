@@ -17,37 +17,50 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormulaireController extends AbstractController
 {
 
-//    #[Route('/add', name: 'form.add')]
-//    public function addForm(ManagerRegistry $doctrine,Request $request): Response
-//    {
-//        $entityManager = $doctrine->getManager();
-//        $form = new FormFixture();
-//        $form= $this->createForm(UserType::class, $form);
-//        $form->handleRequest($request);
-//        if($form->isSubmitted() && $form->isValid()){
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-//            $this->addFlash('success', 'user added');
-//            return $this->redirectToRoute('user');
-//        }else {
-//            return $this->render('form/add-user.html.twig', [
-//                'form' => $form->createView(),
-//            ]);
-//        }
-//    }
+    #[Route('/add', name: 'form.add')]
+    public function addForm(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $entityManager = $doctrine->getManager();
 
-      #[Route('/add', name: 'form.add')]
-      public function addForm( ManagerRegistry $doctrine ): Response
-      {
-          $entityManager = $doctrine->getManager();
-          $form = new Formulaire();
-          $form->setUserName('John Doe');
-          $form->setEmail('hkhk');
-          $form->setMessage("njknv");
-            $entityManager->persist($form);
+        // Create a new instance of the Formulaire entity
+        $formulaire = new Formulaire();
+
+        // Create the form and handle the request
+        $form = $this->createForm(FormulaireType::class, $formulaire);
+        $form->handleRequest($request);
+
+        // Check if the form is submitted and valid
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the data from the form
+            $entityManager->persist($formulaire);
             $entityManager->flush();
-            return $this->redirectToRoute('form.page');
+
+            // Add a flash message and redirect
+            $this->addFlash('success', 'Form added');
+            return $this->redirectToRoute('app_base');
         }
+
+        // Render the form template
+        return $this->render('formulaire/contact.html.twig', [
+            'form' => $form->createView(), // Pass 'form' variable to the template
+        ]);
+    }
+
+
+
+
+//      #[Route('/add', name: 'form.add')]
+//      public function addForm( ManagerRegistry $doctrine ): Response
+//      {
+//          $entityManager = $doctrine->getManager();
+//          $form = new Formulaire();
+//          $form->setUserName('John Doe');
+//          $form->setEmail('hkhk');
+//          $form->setMessage("njknv");
+//            $entityManager->persist($form);
+//            $entityManager->flush();
+//            return $this->redirectToRoute('form.page');
+//        }
 
     #[Route('/edit/{id<\d+>?0}', name: 'form.edit')]
     public function editForm(ManagerRegistry $doctrine, Request $request, $id): Response
@@ -76,7 +89,7 @@ class FormulaireController extends AbstractController
         }
     }
 
-    #[Route('/{page<\d+>?1}/{nb<\d+>?10}', name: 'form.page')]
+    #[Route('/{page<\d+>?1}/{nb<\d+>?10}', name: 'formulaire')]
     public function formpage(ManagerRegistry $doctrine, $page, $nb): Response
     {
         $repository = $doctrine->getRepository(Formulaire::class);
@@ -92,15 +105,15 @@ class FormulaireController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'formulaire')]
-    public function index( ManagerRegistry $doctrine): Response
-    {
-        $repository= $doctrine->getRepository(Formulaire::class);
-        $forms=$repository->findAll();
-        return $this->render('formulaire/index.html.twig', [
-            'forms' => $forms,
-        ]);
-    }
+//    #[Route('/', name: 'formulaire')]
+//    public function index( ManagerRegistry $doctrine): Response
+//    {
+//        $repository= $doctrine->getRepository(Formulaire::class);
+//        $forms=$repository->findAll();
+//        return $this->render('formulaire/index.html.twig', [
+//            'forms' => $forms,
+//        ]);
+//    }
 
 
     #[Route('/{id<\d+>}', name: 'find.by')]
