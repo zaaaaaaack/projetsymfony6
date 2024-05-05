@@ -1,0 +1,97 @@
+{% extends 'template.html.twig' %}
+
+{% block Title %}Dashboard{% endblock %}
+
+
+{% block script %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Users', 'Forms', 'Products'],
+                datasets: [{
+                    label: 'number of items',
+                    data: [{{ nbUs }}, {{ nbFo }}, {{ nbPr }}],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        ctx.removeAttribute('width');
+        ctx.removeAttribute('height');
+        ctx.removeAttribute('margin');
+        ctx.style.width = '800px';
+        ctx.style.height = '800px';
+        ctx.style.margin = '0 auto';
+    </script>
+
+    <script>
+        const ct = document.getElementById('myChartt');
+
+        new Chart(ct, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Men sportswear',
+                    'Women sportswear',
+                    'Supplements'
+                ],
+                datasets: [{
+                    label: 'Pourcentage of items',
+                    data: [{{ cm }}, {{ cw }}, {{ cs }}],
+                    backgroundColor: [
+                        '#EEF5FF',
+                        '#B4D4FF',
+                        '#86B6F6'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                scales: {
+                    width: 400, // Set the width of the chart
+                    height: 200, // Set the height of the chart
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        ct.removeAttribute('width');
+        ct.removeAttribute('height');
+        ct.removeAttribute('margin');
+        ct.style.width = '700px';
+        ct.style.height = '700px';
+        ct.style.margin = '0 auto';
+    </script>
+
+{% endblock %}
+
+
+
+{% block body %}
+    <br>
+    <h1 class="alert alert-danger">Dashboard Statistics</h1>
+    <br> <br> <br>
+
+    <div>
+        <canvas id="myChart" ></canvas>
+    </div>
+
+    <br> <br> <br>
+    <h1 class="alert alert-danger">Stock Statistics</h1>
+    <br> <br> <br>
+    <div>
+        <canvas id="myChartt"></canvas>
+    </div>
+{% endblock %}
+

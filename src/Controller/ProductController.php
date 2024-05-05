@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Formulaire;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\ProductType;
@@ -209,6 +210,33 @@ class ProductController extends AbstractController
 //        }
 //        return $this->redirectToRoute('user.findby.pages');
 //    }
+
+    #[Route('/stats', name: 'stats')]
+    public function stats(ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(Product::class);
+        $nbPr = $repository->count([]);
+        $repository = $doctrine->getRepository(User::class);
+        $nbUs = $repository->count([]);
+        $repository = $doctrine->getRepository(Formulaire::class);
+        $nbFo = $repository->count([]);
+        $repository = $doctrine->getRepository(Product::class);
+        $cm= $repository->countProductsByCategory("Men sportswear");
+        $cw= $repository->countProductsByCategory("Women sportswear");
+        $cs= $repository->countProductsByCategory("Supplements");
+
+        return $this->render('product/stats.html.twig',[
+            'nbPr' => $nbPr,
+            'nbUs' => $nbUs,
+            'nbFo' => $nbFo,
+            'cm' => $cm,
+            'cw' => $cw,
+            'cs' => $cs,
+        ]);
+
+    }
+
+
 
 
 }

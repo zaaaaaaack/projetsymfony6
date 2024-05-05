@@ -104,20 +104,20 @@ class UserController extends AbstractController
 //    }
 
 
-    #[Route('/{id<\d+>}', name: 'find.by')]
-    public function findby( ManagerRegistry $doctrine ,$id): Response
-    {
-        $repository= $doctrine->getRepository(User::class);
-        $user=$repository->find($id);
-        if(!$user){
-            return $this->render('user/notfound.html.twig',[
-                'id'=>$id,
-            ]);
-        }
-        return $this->render('user/detail.html.twig', [
-            'user' => $user,
-        ]);
-    }
+//    #[Route('/{id<\d+>}', name: 'find.by')]
+//    public function findby( ManagerRegistry $doctrine ,$id): Response
+//    {
+//        $repository= $doctrine->getRepository(User::class);
+//        $user=$repository->find($id);
+//        if(!$user){
+//            return $this->render('user/notfound.html.twig',[
+//                'id'=>$id,
+//            ]);
+//        }
+//        return $this->render('user/detail.html.twig', [
+//            'user' => $user,
+//        ]);
+//    }
 
     #[Route('/delete/{id}', name: 'user.delete')]
     public function deleteUser(ManagerRegistry $doctrine,$id): RedirectResponse
