@@ -16,32 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('product')]
+#[Route('dashboard/product',name: "dashboard.product")]
 
 class ProductController extends AbstractController
 {
 
-//    #[Route('/add', name: 'user.add')]
-//    public function addUser(ManagerRegistry $doctrine): Response
-//    {
-//        $entityManager = $doctrine->getManager();
-//        $user = new User();
-//        $user->setFullName('John Doe');
-//        $user->setUserName('johndoe');
-//        $user->setEmail('gjjvjj');
-//        $user->setPhone('jnjkn');
-//        $user->setPassword('jnjkn');
-//
-//
-//        $entityManager->persist($user);
-//
-//        $entityManager->flush();
-//
-//
-//        return $this->redirectToRoute('user');
-//    }
 
-    #[Route('/add', name: 'product.add')]
+
+    #[Route('/add', name: '.product.add')]
     public function addProduct(ManagerRegistry $doctrine,Request $request,SluggerInterface $slugger): Response
     {
         $entityManager = $doctrine->getManager();
@@ -84,7 +66,7 @@ class ProductController extends AbstractController
         }
     }
 
-    #[Route('/edit/{id<\d+>?0}', name: 'product.edit')]
+    #[Route('/edit/{id<\d+>?0}', name: '.product.edit')]
     public function editProduct(ManagerRegistry $doctrine,Request $request,$id,SluggerInterface $slugger): Response
     {
         $entityManager = $doctrine->getManager();
@@ -130,7 +112,7 @@ class ProductController extends AbstractController
         }
     }
 
-    #[Route('/{page<\d+>?1}/{nb<\d+>?12}', name: 'product')]
+    #[Route('/{page<\d+>?1}/{nb<\d+>?12}', name: '.product')]
     public function userspage(ManagerRegistry $doctrine, $page, $nb): Response
     {
         $repository = $doctrine->getRepository(Product::class);
@@ -146,18 +128,10 @@ class ProductController extends AbstractController
         ]);
     }
 
-//    #[Route('/', name: 'product')]
-//    public function index( ManagerRegistry $doctrine): Response
-//    {
-//        $repository= $doctrine->getRepository(Product::class);
-//        $products=$repository->findAll();
-//        return $this->render('user/index.html.twig', [
-//            'products' => $products,
-//        ]);
-//    }
 
 
-    #[Route('/{id<\d+>}', name: 'find.by')]
+
+    #[Route('/{id<\d+>}', name: '.find.by')]
     public function findby( ManagerRegistry $doctrine ,$id): Response
     {
         $repository= $doctrine->getRepository(Product::class);
@@ -172,7 +146,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'product.delete')]
+    #[Route('/delete/{id}', name: '.product.delete')]
     public function deleteProduct(ManagerRegistry $doctrine,$id): RedirectResponse
     {
         $repository = $doctrine->getRepository(Product::class);
@@ -189,29 +163,9 @@ class ProductController extends AbstractController
 
     }
 
-//    #[Route('/update/{id}/{fullname}/{username}/{email}/{phone}/{password}', name: 'user.update')]
-//    public function updateUser($id, ManagerRegistry $doctrine, $fullname, $username, $email, $phone, $password): RedirectResponse {
-//        $repository = $doctrine->getRepository(User::class);
-//        $user= $repository->find($id);
-//        if ($user) {
-//            // Si la personne existe => mettre a jour notre personne + message de succes
-//            $user->setFullName($fullname);
-//            $user->setUserName($username);
-//            $user->setEmail($email);
-//            $user->setPhone($phone);
-//            $user->setPassword($password);
-//            $manager = $doctrine->getManager();
-//            $manager->persist($user);
-//            $manager->flush();
-//            $this->addFlash('success', "La personne a été mis à jour avec succès");
-//        }  else {
-//            //Sinon  retourner un flashMessage d'erreur
-//            $this->addFlash('error', "Personne innexistante");
-//        }
-//        return $this->redirectToRoute('user.findby.pages');
-//    }
 
-    #[Route('/stats', name: 'stats')]
+
+    #[Route('/stats', name: '.stats')]
     public function stats(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Product::class);
@@ -235,8 +189,6 @@ class ProductController extends AbstractController
         ]);
 
     }
-
-
 
 
 }

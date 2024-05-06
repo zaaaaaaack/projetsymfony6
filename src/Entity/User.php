@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ["Email"],message: "There is already an account with this Email !")]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,10 +20,14 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $FullName = null;
 
+
+    #[ORM\Column(type:"json")]
+    private array $roles = [];
+
     #[ORM\Column(length: 255)]
     private ?string $UserName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,unique: true)]
     private ?string $Email = null;
 
     #[ORM\Column(length: 255)]
@@ -31,6 +39,10 @@ class User
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function __construct()
+    {
+        $this->roles= ['ROLE_USER'];
     }
 
     public function getFullName(): ?string
@@ -91,5 +103,29 @@ class User
         $this->Password = $Password;
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+    public function setRoles(array $roles):self
+    {
+        $this->roles=$roles;
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->Email;
     }
 }

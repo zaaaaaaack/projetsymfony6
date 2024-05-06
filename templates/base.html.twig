@@ -122,8 +122,8 @@
             <header class="header-section">
                 <div style="display: flex;">
                     <div class="logo">
-                        <a href="./index.php">
-                            <img src="assets/css/img/logo.png" alt="">
+                        <a href="{{ path('app_base') }}">
+                            <img src="{{ asset('assets/css/img/logo.png') }}" alt="">
                         </a>
                     </div>
                     <div class="container">
@@ -135,6 +135,10 @@
                                     <li><a href="./schedule.html">Schedule</a></li>
                                     <li><a href="./gallery.html">Gallery</a></li>
                                     <li  ><a href="./e-boutique.html">Store</a></li>
+                                    {% if app.user is not null  %}
+                                        {# User has public access #}
+                                    {% endif %}
+
                                     <li><a href="./blog.html">Blog</a>
                                         <ul class="dropdown">
                                             <li><a href="./about-us.html">About Us</a></li>

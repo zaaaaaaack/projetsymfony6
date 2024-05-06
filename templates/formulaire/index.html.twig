@@ -25,8 +25,8 @@
                 <td>{{ form.Email }}</td>
                 <td>{{ form.Message }}</td>
                 <td>
-                    <a href="{{ path('form.edit',{id:form.id}) }}" class="btn btn-outline-danger">Edit</a>
-                    <a href="{{ path('form.delete',{id:form.id}) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ path('dashboard.formulaire.form.edit',{id:form.id}) }}" class="btn btn-outline-danger">Edit</a>
+                    <a href="{{ path('dashboard.formulaire.form.delete',{id:form.id}) }}" class="btn btn-danger">Delete</a>
             </tr>
         {% endfor %}
         </tbody>
@@ -38,16 +38,16 @@
                     <ul class="pagination">
                         {% if page != 1 %}
                             <li class="page-item">
-                                <a class="page-link" href="{{ path('formulaire', {page: page - 1, nb: nb}) }}">Previous</a></li>
+                                <a class="page-link" href="{{ path('dashboard.formulaire.formulaire', {page: page - 1, nb: nb}) }}">Previous</a></li>
                         {% endif %}
                         {% for i in range(1, nbpages) %}
                             <li class="page-item">
-                                <a class="page-link" href="{{ path('formulaire', {page: i, nb: nb}) }}">{{ i }}</a>
+                                <a class="page-link" href="{{ path('dashboard.formulaire.formulaire', {page: i, nb: nb}) }}">{{ i }}</a>
                             </li>
                         {% endfor %}
                         {% if page != nbpages %}
                             <li class="page-item">
-                                <a class="page-link" href="{{ path('formulaire', {page: page + 1, nb: nb}) }}">Next</a>
+                                <a class="page-link" href="{{ path('dashboard.formulaire.formulaire', {page: page + 1, nb: nb}) }}">Next</a>
                             </li>
                         {% endif %}
                     </ul>

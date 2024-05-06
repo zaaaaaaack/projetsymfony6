@@ -11,32 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('user')]
+#[Route('dashboard/user',name: 'dashboard.user')]
 
 class UserController extends AbstractController
 {
 
-//    #[Route('/add', name: 'user.add')]
-//    public function addUser(ManagerRegistry $doctrine): Response
-//    {
-//        $entityManager = $doctrine->getManager();
-//        $user = new User();
-//        $user->setFullName('John Doe');
-//        $user->setUserName('johndoe');
-//        $user->setEmail('gjjvjj');
-//        $user->setPhone('jnjkn');
-//        $user->setPassword('jnjkn');
-//
-//
-//        $entityManager->persist($user);
-//
-//        $entityManager->flush();
-//
-//
-//        return $this->redirectToRoute('user');
-//    }
 
-    #[Route('/add', name: 'user.add')]
+
+    #[Route('/add', name: '.user.add')]
     public function addUser(ManagerRegistry $doctrine,Request $request): Response
     {
         $entityManager = $doctrine->getManager();
@@ -55,7 +37,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[Route('/edit/{id<\d+>?0}', name: 'user.edit')]
+    #[Route('/edit/{id<\d+>?0}', name: '.user.edit')]
     public function editUser(ManagerRegistry $doctrine,Request $request,$id): Response
     {
         $entityManager = $doctrine->getManager();
@@ -77,7 +59,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[Route('/{page<\d+>?1}/{nb<\d+>?12}', name: 'user')]
+    #[Route('/{page<\d+>?1}/{nb<\d+>?12}', name: '.user')]
     public function userspage(ManagerRegistry $doctrine, $page, $nb): Response
     {
         $repository = $doctrine->getRepository(User::class);
@@ -93,33 +75,9 @@ class UserController extends AbstractController
         ]);
     }
 
-//    #[Route('/', name: 'user')]
-//    public function index( ManagerRegistry $doctrine): Response
-//    {
-//        $repository= $doctrine->getRepository(User::class);
-//        $users=$repository->findAll();
-//        return $this->render('user/index.html.twig', [
-//            'users' => $users,
-//        ]);
-//    }
 
 
-//    #[Route('/{id<\d+>}', name: 'find.by')]
-//    public function findby( ManagerRegistry $doctrine ,$id): Response
-//    {
-//        $repository= $doctrine->getRepository(User::class);
-//        $user=$repository->find($id);
-//        if(!$user){
-//            return $this->render('user/notfound.html.twig',[
-//                'id'=>$id,
-//            ]);
-//        }
-//        return $this->render('user/detail.html.twig', [
-//            'user' => $user,
-//        ]);
-//    }
-
-    #[Route('/delete/{id}', name: 'user.delete')]
+    #[Route('/delete/{id}', name: '.user.delete')]
     public function deleteUser(ManagerRegistry $doctrine,$id): RedirectResponse
     {
         $repository = $doctrine->getRepository(User::class);
@@ -136,27 +94,6 @@ class UserController extends AbstractController
 
     }
 
-//    #[Route('/update/{id}/{fullname}/{username}/{email}/{phone}/{password}', name: 'user.update')]
-//    public function updateUser($id, ManagerRegistry $doctrine, $fullname, $username, $email, $phone, $password): RedirectResponse {
-//        $repository = $doctrine->getRepository(User::class);
-//        $user= $repository->find($id);
-//        if ($user) {
-//            // Si la personne existe => mettre a jour notre personne + message de succes
-//            $user->setFullName($fullname);
-//            $user->setUserName($username);
-//            $user->setEmail($email);
-//            $user->setPhone($phone);
-//            $user->setPassword($password);
-//            $manager = $doctrine->getManager();
-//            $manager->persist($user);
-//            $manager->flush();
-//            $this->addFlash('success', "La personne a été mis à jour avec succès");
-//        }  else {
-//            //Sinon  retourner un flashMessage d'erreur
-//            $this->addFlash('error', "Personne innexistante");
-//        }
-//        return $this->redirectToRoute('user.findby.pages');
-//    }
 
 
 }
