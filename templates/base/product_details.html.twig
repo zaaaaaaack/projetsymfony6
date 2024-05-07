@@ -2,11 +2,6 @@
 {% block title %}{{ product.name}}{% endblock %}
 {% block stylesheets %}
 <style>
-
-    
-
-
-
     body {
         background: #151515;
         height: 100%;
@@ -75,37 +70,46 @@
             }
 
             /* Apply styles to the quantity input */
-            .product input[type="number"] {
+            .product input[type="number"]
+            {
                 width: 400px;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        color: #555555;
-        border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                color: #555555;
+                border-radius: 5px;
             }
-
-
         </style>
 {% endblock %}
+
+{% block flash %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}
+
 {% block body %}
-<div class="containerrr">
-    <div class="product content-wrapper">
-        <img src="../{{ product.img }}" width="250" height="250" alt="{{ product.name }}">
-        <div>
-            <h1 class="name">{{ product.name }}</h1>
-            <span class="price">
-                &dollar;{{product.price}}
-            </span>
-            <form action="cart.php" method="post">
-                <input type="number" name="quantity" value="1" min="1" max="{{ product.quantity }}" placeholder="Quantity" required>
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <input type="submit" value="Add To Cart">
-            </form>
-            <div class="description">
-                {{product.description}}
+    <div class="containerrr">
+        <div class="product content-wrapper">
+            <img src="../{{ product.img }}" width="250" height="250" alt="{{ product.name }}">
+            <div>
+                <h1 class="name">{{ product.name }}</h1>
+                <span class="price">
+                    &dollar;{{product.price}}
+                </span>
+                <form action="{{ path('cart') }}" method="post">
+                    {{ form_start(form) }}
+                    {{ form_row(form.quantity, { 'attr': {'max': product.quantity, 'placeholder': 'Quantity', 'required': true} }) }}
+                    {{ form_row(form.product_id) }}
+                    {{ form_row(form.submit, { 'label': 'Add To Cart' }) }}
+                    {{ form_end(form) }}
+                </form>
+                <div class="description">
+                    {{product.description}}
+                </div>
             </div>
         </div>
     </div>
-</div>
-</body>
 {% endblock %}
