@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block stylesheets  %}
+      {{ parent() }}
+    <style>
+        .registration-form-container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #8f0606;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .registration-form-container input[type="text"],
+        .registration-form-container input[type="password"],
+        .registration-form-container input[type="email"] {
+            background-color: #030421;
+            color: #fff;
+            border: 1px solid #34495e;
+        }
+
+        .registration-form-container input[type="text"]:focus,
+        .registration-form-container input[type="password"]:focus,
+        .registration-form-container input[type="email"]:focus {
+            border-color: #c0392b;
+        }
+
+        .registration-form-container button {
+            background-color: #c0392b;
+            border: none;
+        }
+
+        .registration-form-container button:hover {
+            background-color: #a93226;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Register</h1>
+    <div class="registration-form-container">
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.Email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.fullName) }}
+        {{ form_row(registrationForm.userName) }}
+        {{ form_row(registrationForm.phone) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn btn-dark">Register</button>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}
