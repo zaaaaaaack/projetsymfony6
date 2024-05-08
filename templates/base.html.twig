@@ -129,22 +129,18 @@
                         <div class="nav-menu">
                             <nav class="mainmenu mobile-menu">
                                 <ul>
-                                    <li><a href="./index.php">Home</a></li>
-                                    <li><a href="./about-us.html">About us</a></li>
-                                    <li><a href="./schedule.html">Schedule</a></li>
-                                    <li><a href="./gallery.html">Gallery</a></li>
-                                    <li  ><a href="./e-boutique.html">Store</a></li>
-                                    {% if app.user is not null  %}
-                                        {# User has public access #}
+                                    {% if app.user is null %}
+                                        <li><a href="{{ path("app_login") }}">Login</a></li>
+                                        <li><a href="{{ path('app_register') }}">Join US</a></li>
                                     {% endif %}
-
-                                    <li><a href="./blog.html">Blog</a>
-                                        <ul class="dropdown">
-                                            <li><a href="./about-us.html">About Us</a></li>
-                                            <li><a href="./blog-single.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="#">Schedule</a></li>
+                                    <li><a href="#">Gallery</a></li>
+                                    <li  ><a href="{{ path("app_base") }}">Store</a></li>
                                     <li><a href="{{ path('contact') }}">Contacts</a></li>
+                                    {% if app.user is not null  %}
+                                        <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
@@ -265,5 +261,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
                 integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
                 crossorigin="anonymous"></script>
+            <script src="https://kit.fontawesome.com/8ff7d57ae9.js" crossorigin="anonymous"></script>
+
         </body>
     </html>

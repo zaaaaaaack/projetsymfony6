@@ -29,7 +29,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'user added');
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('dashboard.user.user');
         }else {
             return $this->render('user/add-user.html.twig', [
                 'form' => $form->createView(),
@@ -51,7 +51,7 @@ class UserController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('dashboard.user.user');
         }else {
             return $this->render('user/add-user.html.twig', [
                 'form' => $form->createView(),
@@ -90,7 +90,7 @@ class UserController extends AbstractController
         }else{
             $this->addFlash('error', 'user not found');
         }
-        return $this->redirectToRoute('user');
+        return $this->redirectToRoute('dashboard.user.user');
 
     }
 

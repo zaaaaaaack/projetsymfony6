@@ -2,7 +2,8 @@
 
 {% block title %}store{% endblock %}
 
-{% block stylesheets %} 
+{% block stylesheets %}
+    {{ parent() }}
 <style>
     h2{
         color: white;
@@ -29,7 +30,7 @@
                         </div>
                         <h4>&dollar;{{ product.price }}</h4>
                     </div>
-                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa fa-shopping-cart cart"></i></a>
+                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </div>
             {% endfor %}
         </div>
@@ -51,7 +52,7 @@
                         </div>
                         <h4>&dollar;{{ product.price }}</h4>
                     </div>
-                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa fa-shopping-cart cart"></i></a>
+                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </div>
             {% endfor %}
         </div>
@@ -73,7 +74,7 @@
                         </div>
                         <h4>&dollar;{{ product.price }}</h4>
                     </div>
-                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa fa-shopping-cart cart"></i></a>
+                    <a href="{{ path('product_details', {'id': product.id}) }}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </div>
             {% endfor %}
         </div>
