@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+    .cart {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #151515; /* Dark grey */
+    color: black; /* Text color */
+
+    position: relative; /* Set position to relative */
+    z-index: 1; /* Ensure it appears below the header */
+    }
+
+    .header-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #151515;
+    color: white; /* Text color */
+    z-index: 2; /* Ensure it appears above other content */
+    }
+
+    .content-wrapper {
+    padding-top: 150px; /* Add padding to the top of the container */
+    }
+
+
+    .cart h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color:red;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    }
+
+    table, th, td {
+    border: 1px solid #ddd;
+    }
+
+    th, td {
+    padding: 10px;
+    text-align: left;
+    color:red;
+    }
+
+    th {
+    background-color: #f2f2f2;
+    }
+
+    td img {
+    max-width: 100px;
+    }
+
+    .quantity input {
+    width: 50px;
+    padding: 5px;
+    }
+
+    .subtotal {
+    margin-top: 20px;
+    color:red;
+    text-align: right;
+    }
+
+    .subtotal .text {
+    color: red;
+    font-weight: bold;
+    }
+
+    .buttons {
+    margin-top: 20px;
+    text-align: right;
+    }
+
+    .buttons input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    }
+
+    .buttons input[type="submit"]:hover {
+    background-color: #45a049;
+    }
+
+    .remove {
+    color: #f44336;
+    text-decoration: none;
+    margin-left: 10px;
+    }
+
+    .remove:hover {
+    text-decoration: underline;
+    }
+
+    body {
+    background: #151515;
+    height: 100%;
+    font-family: "Nunito Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}

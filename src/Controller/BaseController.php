@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+
 use phpDocumentor\Reflection\Types\Boolean;
+use App\Form\ProductFormType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
@@ -11,7 +15,11 @@ use App\Repository\ProductRepository;
 class BaseController extends AbstractController
 {
 
-    #[Route('/shop', name: 'app_base')]
+
+
+
+
+    #[Route('/shop', name: 'products_base')]
     public function index(ProductRepository $productRepository): Response
     {
         if($this->redirectAdmin()){
@@ -27,8 +35,9 @@ class BaseController extends AbstractController
             'supplements' => $supplements,
         ]);
     }
-    #[Route('/product/{id}', name: 'product_details')]
-    public function show($id, ProductRepository $productRepository): Response
+    #[Route('/products/{id}', name: 'product_details')]
+    public function show($id, ProductRepository $productRepository, Request $request): Response
+
     {
         if($this->redirectAdmin()){
             return $this->redirectToRoute("dashboard.product.stats");
@@ -38,10 +47,19 @@ class BaseController extends AbstractController
             throw $this->createNotFoundException('Product not found');
         }
 
-       return $this->render('base/product_details.html.twig', [
-            'product' => $product,
+        $form = $this->createForm(ProductFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+            $this->addFlash("success","Ce produit est ajouté à votre chariot avec sucées");
+        else {
+            return $this->redirectToRoute('products_base');
+        }
+        return $this->render('cart/index.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product
         ]);
     }
+
     #[Route('/base/contact', name: 'contact')]
     public function contact(): Response
     {
@@ -58,5 +76,9 @@ class BaseController extends AbstractController
         return false;
 
     }
+
 }
+
+
+
 

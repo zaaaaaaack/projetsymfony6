@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
                              VerifyEmailHelperInterface $emailHelper): Response
     {
         if($this->getUser()){
-            return $this->redirectToRoute('app_base');
+            return $this->redirectToRoute('products_base');
         }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);

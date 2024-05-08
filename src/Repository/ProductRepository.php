@@ -55,4 +55,7 @@ class ProductRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findByCategory(string $string)
+    {
+    }
 }

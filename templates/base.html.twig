@@ -112,6 +112,9 @@
                 
             {% endblock %}
         </head>
+
+        {% block flash %}
+        {% endblock %}
         <body>
             <div id="preloder">
                 <div class="loader"></div>
@@ -121,7 +124,7 @@
             <header class="header-section">
                 <div style="display: flex;">
                     <div class="logo">
-                        <a href="{{ path('app_base') }}">
+                        <a href="{{ path('products_base') }}">
                             <img src="{{ asset('assets/css/img/logo.png') }}" alt="">
                         </a>
                     </div>
@@ -136,7 +139,7 @@
                                     <li><a href="#">About us</a></li>
                                     <li><a href="#">Schedule</a></li>
                                     <li><a href="#">Gallery</a></li>
-                                    <li  ><a href="{{ path("app_base") }}">Store</a></li>
+                                    <li  ><a href="{{ path("products_base") }}">Store</a></li>
                                     <li><a href="{{ path('contact') }}">Contacts</a></li>
                                     {% if app.user is not null  %}
                                         <li><a href="{{ path('app_logout') }}">Logout</a></li>
