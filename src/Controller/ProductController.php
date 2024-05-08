@@ -58,7 +58,7 @@ class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
             $this->addFlash('success', 'product added');
-            return $this->redirectToRoute('product');
+            return $this->redirectToRoute('dashboard.product.stats');
         }else {
             return $this->render('product/add-product.html.twig', [
                 'form' => $form->createView(),
@@ -159,7 +159,7 @@ class ProductController extends AbstractController
         }else{
             $this->addFlash('error', 'product not found');
         }
-        return $this->redirectToRoute('product');
+        return $this->redirectToRoute('dashboard.product.stats');
 
     }
 

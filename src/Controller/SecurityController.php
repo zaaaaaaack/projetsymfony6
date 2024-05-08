@@ -17,7 +17,7 @@ class SecurityController extends AbstractController
          }
          else{
              if($this->getUser()){
-                 return $this->redirectToRoute('app_base');
+                 return $this->redirectToRoute('products_base');
 
              }
          }
