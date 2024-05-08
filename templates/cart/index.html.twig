@@ -112,7 +112,74 @@
     }
     </style>
 {% endblock %}
+  
 
 {% block body %}
-
+<div class="cart content-wrapper">
+    <h1>Shopping Cart</h1>
+    <form method="post">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <td colspan="2">Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data is empty %}
+                    <tr>
+                        <td colspan="5" style="text-align:center;">You have no products added in your Shopping Cart</td>
+                    </tr>
+                {% else %}
+                    {% for element in data %}
+                        <tr>
+                            <td class="img">
+                                <a href="{{ path('product_details', {'id': element.product.id}) }}">
+                                    <img src="{{ element.product.img }}" alt="{{ element.product.name }}">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ path('product_details', {'id': element.product.id}) }}">{{ element.product.name }}</a>
+                                <br>
+                                <a href="{{ path('cart_delete', {'id': element.product.id}) }}" class="remove">Remove</a>
+                            </td>
+                            <td class="price">&dollar;{{ element.product.price }}</td>
+                            <td class="quantity">
+                                <form action="{{ path('cart_update') }}" method="post">
+                                    <input type="hidden" name="product_id" value="{{ element.product.id }}">
+                                    <input type="hidden" name="action" value="add">
+                                    <button type="submit">+</button>
+                                </form>
+                                <form action="{{ path('cart_update') }}" method="post">
+                                    <input type="hidden" name="product_id" value="{{ element.product.id }}">
+                                    <input type="hidden" name="action" value="subtract">
+                                    <button type="submit">-</button>
+                                </form>
+                                
+                            </td>
+                            <td class="price">&dollar;{{ element.product.price * element.quantity}} </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <div class="subtotal">
+            <span class="text">Subtotal</span>
+            <span class="price">&dollar;{{ subtotal }}</span>
+        </div>
+        <form action="{{ path('cart_empty') }}" method="POST">
+            <div class="buttons" style="text-align: left;">
+                <button type="submit" name="removeAll">Empty Cart</button>
+            </div>
+        </form>
+        
+        <form action="{{ path('cart_placeorder') }}" method="POST">
+            <div class="buttons" style="text-align: left;">
+                <button type="submit" name="placeOrder">Place Order</button>
+            </div>
+        </form>
+    </form>
+</div>
 {% endblock %}
