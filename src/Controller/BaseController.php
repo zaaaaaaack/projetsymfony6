@@ -26,9 +26,9 @@ class BaseController extends AbstractController
             'supplements' => $supplements,
         ]);
     }
+
     #[Route('/products/{id}', name: 'product_details')]
     public function show($id, ProductRepository $productRepository, Request $request): Response
-
     {
         $product = $productRepository->find($id);
         if (!$product) {
@@ -37,12 +37,10 @@ class BaseController extends AbstractController
 
         $form = $this->createForm(ProductFormType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-            $this->addFlash("success","Ce produit est ajouté à votre chariot avec sucées");
-        else {
-            return $this->redirectToRoute('/store');
-        }
-        return $this->render('cart/index.html.twig', [
+
+
+
+        return $this->render('base/product_details.html.twig', [
             'form' => $form->createView(),
             'product' => $product
         ]);
@@ -51,14 +49,10 @@ class BaseController extends AbstractController
     #[Route('/base/contact', name: 'contact')]
     public function contact(): Response
     {
-        return $this->redirectToRoute('form.add');
+        return $this->forward("App\Controller\FormulaireController::addForm");
     }
 }
 
 
-    #[Route('/cart',name:'cart')]
-    public function cartInspection()
-    {
 
-    }
 

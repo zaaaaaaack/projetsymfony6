@@ -99,11 +99,11 @@
                 <span class="price">
                     &dollar;{{product.price}}
                 </span>
-                <form action="{{ path('cart_add'),{id:form.product_id , quantity:form.quantity} }}" method="post">
+                <form action="{{ path('cart_add',{'id':product.id}) }}" method="post">
                     {{ form_start(form) }}
-                    {{ form_row(form.quantity, { 'attr': {'max': product.quantity, 'placeholder': 'Quantity', 'required': true} }) }}
+                    {{ form_row(form.quantity, { 'attr': {'max': product.quantity, 'placeholder': 'Quantity', 'required': true,'id': 'quantity1'} }) }}
                     {{ form_row(form.product_id) }}
-                    {{ form_row(form.submit, { 'label': 'Add To Cart' }) }}
+                    {{ form_row(form.Add_To_Cart, { 'label': 'Add To Cart' }) }}
                     {{ form_end(form) }}
                 </form>
                 <div class="description">

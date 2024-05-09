@@ -14,37 +14,52 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cart', name:'cart_')]
 class CartController extends AbstractController
 {
-  #[Route('/',name:'index')]
-   public function index(SessionInterface $session,EntityManagerInterface $entityManager){
-    $panier=$session->get('panier',[]);
-    $data=[];
-    $total=0;
-    foreach ($panier as $id =>$quantity) {
-        $product = $entityManager->getRepository(Product::class)->find($id);
-       if($product)
-        {
-            $data[$id]=['product'=>$product,'quantity'=>$quantity];
-            $total += $product->getPrice()*$quantity ;
-        }else{
-           unset($panier[$id]);
+    #[Route('/',name:'index')]
+    public function index(SessionInterface $session, EntityManagerInterface $entityManager,Request $request): Response
+    {
+        $panier = $session->get('panier',[]);
+
+        $data = [];
+        $subtotal = 0;
+
+        // Retrieve all product IDs from the cart
+        $productIds = array_keys($panier);
+
+        // Retrieve all products from the database using one query
+        $products = $entityManager->getRepository(Product::class)->findBy(['id' => $productIds]);
+
+        foreach ($products as $product) {
+            $id = $product->getId();
+            $quantity = $panier[$id] ?? 0;
+
+            // Calculate subtotal
+            $subtotal += $product->getPrice() * $quantity;
+
+            // Store product data
+            $data[$id] = ['product' => $product, 'quantity' => $quantity];
         }
-        
-       
+
+        // Update session with current cart data
+        $session->set('panier', $panier);
+
+        return $this->render('cart/index.html.twig', [
+            'data' => $data,
+            'subtotal' => $subtotal
+        ]);
     }
-    return $this->render('cart/index.html.twig',['data'=>$data,'subtotal'=>$total]);
-   }
-   
+
   #[Route('/add/{id}',name:'add')]
-  public function add(int $id,int $quantity, SessionInterface $session, EntityManagerInterface $entityManager){
-    $product = $entityManager->getRepository(Product::class)->find($id);
-    $panier=$session->get('panier',[]);
-    if (empty($panier[$id])){
-        $panier[$id]= $quantity;
-    }else{
-        $panier[$id]+=$quantity;
-    }
-    $session->set('panier', $panier);
-    return $this->redirectToRoute('cart_index');
+  public function add(int $id, SessionInterface $session, EntityManagerInterface $entityManager,Request $request){
+        $quantity =$request->get('product_form')['quantity'];
+
+        $panier=$session->get('panier',[]);
+        if (isset($panier[$id])){
+            $panier[$id]+= $quantity;
+        }else{
+            $panier[$id]=$quantity;
+        }
+        $session->set('panier', $panier);
+        return $this->redirectToRoute('cart_index');
 }
 
 
@@ -53,9 +68,12 @@ class CartController extends AbstractController
     {
         $productId = $request->request->get('product_id');
         $action = $request->request->get('action');
+
         $panier=$session->get('panier',[]);
+
         if ($action === 'add') {
-            return $this->redirectToRoute('add', ['id' => $productId ,'quantity'=>1]);
+            $panier[$productId]++;
+
 
         }elseif ($action === 'subtract') {
             if(!empty($panier[$productId])){
@@ -85,17 +103,26 @@ public function delete(int $id, SessionInterface $session, ){
 
 
 #[Route('/empty',name:'empty')]
-public function empty(int $id, SessionInterface $session, ){
+public function empty(SessionInterface $session, ){
     $session->remove('panier');
     return $this->redirectToRoute('cart_index');
 }
 
-#[Route('/placeorder',name:'placeorder')]
-public function placeorder(int $id, SessionInterface $session, ){
-    $session->remove('panier');
-    return $this->render('cart/placeorder.html.twig');
+    #[Route('/placeorder',name:'placeorder')]
+    public function placeorder( SessionInterface $session, ){
+        if ( $this->getUser() && in_array("ROLE_ADMIN",$this->getUser()->getRoles())) {
+            return $this->redirectToRoute('dashboard.product.stats');
+        }
+        else{
+            if(($this->getUser())==null){
+                return $this->redirectToRoute('app_login');
 
-}
+            }
+        }
+        $session->remove('panier');
+        return $this->render('cart/placeorder.html.twig');
+
+    }
 
 }
   

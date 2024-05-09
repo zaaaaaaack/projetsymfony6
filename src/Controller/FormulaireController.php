@@ -37,7 +37,7 @@ class FormulaireController extends AbstractController
 
             // Add a flash message and redirect
             $this->addFlash('success', 'Form added');
-            return $this->redirectToRoute('app_base');
+            return $this->redirectToRoute('products_base');
         }
 
         // Render the form template

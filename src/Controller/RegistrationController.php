@@ -36,6 +36,9 @@ class RegistrationController extends AbstractController
                              VerifyEmailHelperInterface $emailHelper): Response
     {
         if($this->getUser()){
+            if(in_array("ROLE_ADMIN",$this->getUser()->getRoles())){
+                return $this->redirectToRoute("dashboard.product.stats");
+            }
             return $this->redirectToRoute('products_base');
         }
         $user = new User();
